@@ -1,0 +1,49 @@
+import XCTest
+import BigInt
+@testable import BigIntCompress
+
+extension BigInt: BigIntType {
+    
+    public var hexString: String {
+        return String(self, radix: 16)
+    }
+    
+    public init?(hexString: String) {
+        self.init(hexString, radix: 16)
+    }
+    
+    public init<T>(_ value: T) where T : Numeric {
+        self.init(value)
+    }
+}
+
+extension String: Compressable {
+    public typealias CompressionNumber = BigInt
+    
+    public static var possibleComponents: [Character] {
+        return [ "A", "C", "G", "T" ]
+    }
+    
+    public static func single(_ element: Element) -> String {
+        return "\(element)"
+    }
+}
+class BigIntCompressTests: XCTestCase {
+    func testExample() {
+       let expected = """
+CCAAGGATTTCCAAGGATTTTTCTCCACTGTTCTCCACTGTTCTCCACTGACAACCCTGGCCACGTATTCTCCACTGGCCACGTAACAACCCTGGCCACGTACCAAGGATTTGGACGGCTCCCCAAGGATTTGGACGGCTCCGCCACGTAGCCACGTATTCTCCACTGACAACCCTGACAACCCTGGCCACGTAGGACGGCTCCACAACCCTGCCAAGGATTTTTCTCCACTGGCCACGTATTCTCCACTGGGACGGCTCCGGACGGCTCCCCAAGGATTTGCCACGTATTCTCCACTGGGACGGCTCCGCCACGTAGGACGGCTCCGGACGGCTCCCCAAGGATTTTTCTCCACTGGGACGGCTCCTTCTCCACTGCCAAGGATTTCCAAGGATTTGCCACGTACCAAGGATTTGGACGGCTCCGCCACGTAGCCACGTACCAAGGATTTCCAAGGATTTGGACGGCTCCTTCTCCACTGTTCTCCACTGCCAAGGATTTTTCTCCACTGGGACGGCTCCACAACCCTGGGACGGCTCCACAACCCTGTTCTCCACTGTTCTCCACTGTTCTCCACTGCCAAGGATTTGGACGGCTCCCCAAGGATTTTTCTCCACTGTTCTCCACTGGGACGGCTCCGCCACGTAGGACGGCTCCACAACCCTGTTCTCCACTGGCCACGTAGCCACGTAACAACCCTGGCCACGTAACAACCCTGCCAAGGATTTCCAAGGATTTCCAAGGATTTACAACCCTGGCCACGTAGGACGGCTCCGCCACGTATTCTCCACTGGCCACGTAACAACCCTGGCCACGTAACAACCCTGGCCACGTAGCCACGTAGCCACGTATTCTCCACTGGGACGGCTCCCCAAGGATTTGCCACGTAGGACGGCTCCTTCTCCACTGGGACGGCTCCGCCACGTAACAACCCTGTTCTCCACTGGCCACGTACCAAGGATTTCCAAGGATTTGGACGGCTCCCCAAGG
+"""
+        
+        let asciiData = expected.data(using: .ascii)
+        let compressed = expected.encode()
+        XCTAssert(compressed!.count * 3 < asciiData!.count)
+        let back = try! String.decode(compressed!)!
+        
+        XCTAssert(back == expected)
+    }
+
+
+    static var allTests = [
+        ("testExample", testExample),
+    ]
+}
