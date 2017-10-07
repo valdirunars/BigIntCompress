@@ -1,6 +1,6 @@
 import XCTest
 import BigInt
-@testable import BigIntCompress
+import BigIntCompress
 
 extension BigInt: BigIntType {
     
@@ -35,9 +35,9 @@ CCAAGGATTTCCAAGGATTTTTCTCCACTGTTCTCCACTGTTCTCCACTGACAACCCTGGCCACGTATTCTCCACTGGCC
 """
         
         let asciiData = expected.data(using: .ascii)
-        let compressed = expected.encode()
+        let compressed = expected.bic.encode()
         XCTAssert(compressed!.count * 3 < asciiData!.count)
-        let back = try! String.decode(compressed!)!
+        let back = try! String.bic.decode(compressed!)!
         
         XCTAssert(back == expected)
     }

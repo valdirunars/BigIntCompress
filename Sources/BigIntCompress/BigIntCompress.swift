@@ -4,8 +4,34 @@ import Foundation
 fileprivate let sizeOfUInt = MemoryLayout<UInt>.size
 fileprivate let sizeOfInt = MemoryLayout<Int>.size
 
-extension Compressable {
+public struct BigIntCompress<Base: Compressable> {
+
+    internal let base: Base
+    
+    /// Creates extensions with base object.
+    ///
+    /// - parameter base: Base object.
+    internal init(_ base: Base) {
+        self.base = base
+    }
+    
     public func encode() -> Data? {
+        return base.encode()
+    }
+}
+
+public struct BigIntDecompress<Base: Compressable> {
+    public static func decode(_ data: Data) throws -> Base? {
+        return try Base.decode(data)
+    }
+}
+
+extension Compressable {
+
+    public var bic: BigIntCompress<Self> { return BigIntCompress(self) }
+    public static var bic: BigIntDecompress<Self>.Type { return BigIntDecompress<Self>.self }
+
+    internal func encode() -> Data? {
         var number: CompressionNumber = 0
 
         for element in self {
@@ -25,12 +51,12 @@ extension Compressable {
         }
         if string.count % 2 == 1,
             let byte = string.getHexByte(startIndex: string.count-1, endIndex: string.count) {
-            
+
             mutableData.append(Data(repeating: byte, count: 1))
         }
 
         let finalData = NSMutableData()
-        
+
         var count = self.count
         let countData = Data(bytes: &count,
                              count: sizeOfInt)
@@ -59,14 +85,14 @@ extension Compressable {
         return prefix + .single(symbol)
     }
 
-    public static func decode(_ data: Data) throws -> Self? {
+    internal static func decode(_ data: Data) throws -> Self? {
         guard data.isEmpty == false else { return nil }
-        
+
         let countData = data.prefix(upTo: sizeOfInt)
         let length: Int = countData.withUnsafeBytes { $0.pointee }
 
         let stringData = data.suffix(from: sizeOfInt)
-        
+
         var numberString = ""
         for (index, byte) in stringData.enumerated() {
             var value = String(byte, radix: 16)
