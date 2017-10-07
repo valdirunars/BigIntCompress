@@ -46,7 +46,9 @@ public func encode() -> Data? {
 ## How to Use
 
 ### Swift Package Manager
-
+```swift
+.package(url: "https://github.com/valdirunars/BigIntCompress.git", from: "3.0.0"),
+```
 ### Making your collection `Compressable`
 
 First we must find a big integer type and make it conform to BigIntCompress' `BigIntType` there are many sufficient swift libraries out there. I usually use [BigInt](https://github.com/attaswift/BigInt)
