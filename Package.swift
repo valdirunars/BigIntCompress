@@ -11,9 +11,7 @@ let package = Package(
             name: "BigIntCompress",
             targets: ["BigIntCompress"]),
     ],
-    dependencies: [
-        .package(url: "https://github.com/attaswift/BigInt.git", from: "3.0.0"),
-    ],
+    dependencies: [],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
@@ -22,6 +20,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "BigIntCompressTests",
-            dependencies: ["BigIntCompress", "BigInt"]),
+            dependencies: ["BigIntCompress"]),
     ]
 )
