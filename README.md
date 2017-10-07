@@ -86,6 +86,8 @@ extension String: Compressable {
 }
 ```
 
+Now `String` has two new properties. A static variable `bic` for decoding and an instance variable with an identical name for encoding.
+
 ### Encoding and decoding
 
 ```swift
