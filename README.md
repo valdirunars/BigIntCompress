@@ -47,7 +47,7 @@ public func encode() -> Data? {
 
 ### Swift Package Manager
 ```swift
-.package(url: "https://github.com/valdirunars/BigIntCompress.git", from: "3.0.0"),
+.package(url: "https://github.com/valdirunars/BigIntCompress.git", from: "1.0.0"),
 ```
 ### Making your collection `Compressable`
 
