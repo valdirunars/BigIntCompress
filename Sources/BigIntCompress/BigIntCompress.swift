@@ -1,4 +1,3 @@
-import BigInt
 import Foundation
 
 fileprivate let sizeOfUInt = MemoryLayout<UInt>.size
