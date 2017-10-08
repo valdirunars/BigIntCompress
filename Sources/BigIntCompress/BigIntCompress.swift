@@ -7,14 +7,14 @@ fileprivate let sizeOfInt = MemoryLayout<Int>.size
 public struct BigIntCompress<Base: Compressable> {
 
     internal let base: Base
-    
+
     /// Creates extensions with base object.
     ///
     /// - parameter base: Base object.
     internal init(_ base: Base) {
         self.base = base
     }
-    
+
     public func encode() -> Data? {
         return base.encode()
     }
@@ -26,7 +26,7 @@ public struct BigIntDecompress<Base: Compressable> {
     }
 }
 
-extension Compressable {
+public extension Compressable {
 
     public var bic: BigIntCompress<Self> { return BigIntCompress(self) }
     public static var bic: BigIntDecompress<Self>.Type { return BigIntDecompress<Self>.self }
