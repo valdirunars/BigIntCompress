@@ -8,6 +8,6 @@
 import Foundation
 
 enum DecodeError: Error {
-    case dataNotLargeIntEncoded
+    case dataNotBigIntCompressed
     case noElementReturnedForNumber(Any)
 }
