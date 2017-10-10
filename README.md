@@ -1,3 +1,5 @@
+<img src="https://travis-ci.org/valdirunars/BigIntCompress.svg?branch=master"/>
+
 # BigIntCompress
 
 An algorithm designed for compressing large collections of elements each having only a few possible values. E.g types representable by an `enum`.
