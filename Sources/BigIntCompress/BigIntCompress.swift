@@ -68,7 +68,7 @@ public extension Compressable {
     internal static func recursiveDecode(number: CompressionNumber, length: Int) throws -> Self {
         guard length > 1 else {
             guard let element = element(for: number) else {
-                throw DecodeError.dataNotLargeIntEncoded
+                throw DecodeError.dataNotBigIntCompressed
             }
             return .single(element)
         }
@@ -102,7 +102,7 @@ public extension Compressable {
         }
 
         guard let initialNumber = CompressionNumber(hexString: numberString) else {
-            throw DecodeError.dataNotLargeIntEncoded
+            throw DecodeError.dataNotBigIntCompressed
         }
         return try recursiveDecode(number: initialNumber, length: length)
     }
