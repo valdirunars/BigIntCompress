@@ -35,7 +35,6 @@ class BigIntCompressTests: XCTestCase {
     func testExample() {
        let expected = "ACGT"
         
-        let asciiData = expected.data(using: .ascii)
         let compressed = expected.bic.encode()
         let back = try! String.bic.decode(compressed!)!
         
