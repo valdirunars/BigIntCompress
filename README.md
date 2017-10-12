@@ -109,3 +109,8 @@ XCTAssert(back == expected)
 let asciiData: Data! = expected.data(using: .ascii)
 XCTAssert(compressed.count * 3 < asciiData.count)
 ```
+
+### Disadvantages
+The algorithm is lossy in the sense that it focuses primarily on a collection's object and thus looses metadata of those collections. BigIntCompress could be implemented to support this appending metadata to the compressed data, in fact it is on my TODO list.
+
+But for now, it is only feasable for compressing "raw" data formats
