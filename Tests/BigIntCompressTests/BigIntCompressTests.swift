@@ -36,21 +36,18 @@ class BigIntCompressTests: XCTestCase {
     func testExample() {
        var expected = "ACGT"
         
-        var asciiData = expected.data(using: .ascii)
-        var compressed = expected.bic.encode()
-        var back = try! String.bic.decode(compressed!)!
+        var compressed = expected.bic.encode()!
+        var back = try! String.bic.decode(compressed)!
         
         XCTAssert(back == expected)
         
         expected = "ACGTA"
         
-        asciiData = expected.data(using: .ascii)
-        compressed = expected.bic.encode()
-        back = try! String.bic.decode(compressed!)!
+        compressed = expected.bic.encode()!
+        back = try! String.bic.decode(compressed)!
         
         XCTAssert(back == expected)
     }
-
 
     static var allTests = [
         ("testExample", testExample),
