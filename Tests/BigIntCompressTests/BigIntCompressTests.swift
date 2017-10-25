@@ -15,6 +15,7 @@ extension Int: BigIntType {
         
     }
     
+    
     public init<T>(_ value: T) where T : Numeric {
         self = value as! Int
     }
@@ -33,11 +34,19 @@ extension String: Compressable {
 }
 class BigIntCompressTests: XCTestCase {
     func testExample() {
-       let expected = "ACGT"
+       var expected = "ACGT"
         
-        let asciiData = expected.data(using: .ascii)
-        let compressed = expected.bic.encode()
-        let back = try! String.bic.decode(compressed!)!
+        var asciiData = expected.data(using: .ascii)
+        var compressed = expected.bic.encode()
+        var back = try! String.bic.decode(compressed!)!
+        
+        XCTAssert(back == expected)
+        
+        expected = "ACGTA"
+        
+        asciiData = expected.data(using: .ascii)
+        compressed = expected.bic.encode()
+        back = try! String.bic.decode(compressed!)!
         
         XCTAssert(back == expected)
     }
