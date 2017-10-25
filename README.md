@@ -1,6 +1,8 @@
+<img src="https://travis-ci.org/valdirunars/BigIntCompress.svg?branch=master"/>
+
 # BigIntCompress
 
-An algorithm designed for compressing large collections of elements each having only containing possible values. E.g types representable by an `enum`.
+An algorithm designed for compressing large collections of elements each having only a few possible values. E.g types representable by an `enum`.
 
 It is inspired by the field of bio-informatics where huge collections are often compressed into various formats without exploiting the fact that their components have very few possible values, e.g. a DNA's nucleotide which has only four, A, C, G & T.
 
@@ -107,3 +109,8 @@ XCTAssert(back == expected)
 let asciiData: Data! = expected.data(using: .ascii)
 XCTAssert(compressed.count * 3 < asciiData.count)
 ```
+
+### Disadvantages
+The algorithm is lossy in the sense that it focuses primarily on a collection's object and thus looses metadata of those collections. BigIntCompress could be implemented to support this appending metadata to the compressed data, in fact it is on my TODO list.
+
+But for now, it is only feasable for compressing "raw" data formats
